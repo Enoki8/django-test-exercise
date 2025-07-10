@@ -39,3 +39,15 @@ def delete(request, task_id):     # 削除処理を追加
         raise Http404("Task does not exist")
     task.delete()
     return redirect(index)
+
+def update(request, task_id):
+    if request.method == 'POST':
+        task.title = request.POST['title']
+        task.due_at = make_aware(parse_datetime(request.POST['due_at']))
+        task.save()
+        return redirect(detail, task_id)
+    
+    context = {
+        'task': task
+    }
+    return render(request, "todo/edit.html", context)

@@ -23,4 +23,5 @@ urlpatterns = [
     path('', todo_views.index, name='index'),
     path('<int:task_id>/', todo_views.detail, name='detail'),
     path('<int:task_id>/delete', todo_views.delete, name='delete'),     # 削除ページを設定
+    path('<int:task_id>/update', todo_views.update, name='update'),
 ]
