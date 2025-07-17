@@ -14,6 +14,10 @@
     <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
         <div>
+            <label for="userNameInput">User Name</label><br>
+            <input id="userNameInput" name="user_name" type="text" placeholder="Input your name">
+        </div>
+        <div>
             <label for="titleInput">Title</label><br>
             <input id="titleInput" name="title" type="text" placeholder="Input title">
         </div>
@@ -36,6 +40,7 @@
     <div class="text">
         <h2><a href="{% url 'detail' task.id %}">{{ task.title }}</a></h2>
         <ul>
+            <li>Posted by: {{ task.user_name }}</li>
             <li>Posted at: {{ task.posted_at }}</li>
             {% if task.due_at %}
             <li>Due at: {{ task.due_at }}</li>
