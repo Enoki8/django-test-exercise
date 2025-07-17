@@ -1,0 +1,96 @@
+
+body {
+    font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: #f7f7f7;
+    color: #222;
+    margin: 0;
+    padding: 0 0 40px 0;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    max-width: 400px;
+    margin-bottom: 24px;
+}
+
+form div {
+    margin-bottom: 16px;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #217dbb;
+}
+
+ul {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    list-style: none;
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #217dbb;
+    text-decoration: underline;
+}
+
+.text {
+    margin-bottom: 32px;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.form {
+  cursor: pointer;
+  border: solid 1px black;
+  transition: all 0.5s;
+}
+
+.form:hover {
+  background-color: orange;
+  color: white;
+  border-radius: 20px;
+}

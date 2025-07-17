@@ -6,12 +6,13 @@
     <title>To Do Application</title>
     <meta charset="UTF-8">
     <meta name="author" content="INIAD">
+    <link href="{% static 'todo/css/default.css' %}" rel="stylesheet">
 </head>
 
 <body>
     <h1>Sample To Do Application</h1>
     <p>You can submit tasks from the following form.</p>
-    <form action="{% url 'index' %}" method="post">
+    <form action="{% url 'index' %}" method="post" class="form">
         {% csrf_token %}
         <div>
             <label for="titleInput">Title</label><br>
