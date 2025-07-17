@@ -26,16 +26,6 @@ form div {
     margin-bottom: 16px;
 }
 
-input[type="text"],
-input[type="datetime-local"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-    box-sizing: border-box;
-}
-
 button {
     background: #3498db;
     color: #fff;
@@ -93,4 +83,20 @@ a:hover {
   background-color: orange;
   color: white;
   border-radius: 20px;
+}
+
+.text {
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.text:hover {
+    background-color: greenyellow;
+    color: #333;
+    border-radius: 8px;
+}
+
+.description:hover {
+    background-color: black;
+    border-radius: 4px;
 }
