@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from todo import views as todo_views
+from django.contrib.auth import views as auth_views # いいね機能のために追加した
+from todo.views import signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,8 @@ urlpatterns = [
     path('<int:task_id>/delete', todo_views.delete, name='delete'),     # 削除ページを設定
     path('<int:task_id>/close', todo_views.close, name='close'),
     path('<int:task_id>/update', todo_views.update, name='update'),
+    path('<int:task_id>/toggle_like', todo_views.toggle_like, name='toggle_like'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', signup, name='signup'),
 ]
