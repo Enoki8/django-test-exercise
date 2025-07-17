@@ -9,10 +9,14 @@ def index(request):
     if request.method == 'POST':
         task = Task(
             title=request.POST['title'],
-            due_at=make_aware(parse_datetime(request.POST['due_at']))
+            due_at=make_aware(parse_datetime(request.POST['due_at'])),
+            tag=request.POST['tag']
         )
         task.save()
-    if request.GET.get('order') == 'due':
+    tag = request.GET.get('tag')
+    if tag:
+        tasks = Task.objects.filter(tag=tag)
+    elif request.GET.get('order') == 'due':
         tasks = Task.objects.order_by('due_at')
     else:
         tasks = Task.objects.order_by('-posted_at')
@@ -65,3 +69,4 @@ def close(request, task_id):
     task.completed = True
     task.save()
     return redirect(index)
+
