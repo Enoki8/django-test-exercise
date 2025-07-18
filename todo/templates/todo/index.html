@@ -23,6 +23,15 @@
             <input id="dueInput" name="due_at" type="datetime-local">
         </div>
         <div>
+            <label for="tagInput">Tag:</label><br>
+            <select id="tagInput" name="tag">
+                <option value="coding">コーディング</option>
+                <option value="submit">作品提出</option>
+                <option value="presentation">発表</option>
+                <option value="other">その他</option>
+            </select>
+        </div>
+        <div>
             <button type="submit">Submit</button>
         </div>
     </form>
@@ -32,25 +41,37 @@
         <a href="{% url 'index' %}?order=due">Sort by Due Date</a> |
         <a href="{% url 'index' %}?order=post">Sort by Posted Date</a>
     </div>
-
+    <form method="get">
+        <select name="tag">
+            <option value="">全て</option>
+            <option value="coding">コーディング</option>
+            <option value="submit">作品提出</option>
+            <option value="presentation">発表</option>
+            <option value="other">その他</option>
+        </select>
+        <input type="submit" value="タグで絞り込み">
+    </form>
     {% for task in tasks %}
     <div class="text">
         <h2><a href="{% url 'detail' task.id %}">{{ task.title }}</a></h2>
         <div class="description">
-            <ul>
-                <li>Posted at: {{ task.posted_at }}</li>
-                {% if task.due_at %}
-                <li>Due at: {{ task.due_at }}</li>
-                {% endif %}
-                {% if task.completed %}
-                <li>Status: Completed</li>
-                {% else %}
-                <li>Status: Not Completed</li>
-                {% endif %}
-            </ul>
+          <ul>
+              <li>Posted at: {{ task.posted_at }}</li>
+              {% if task.due_at %}
+              <li>Due at: {{ task.due_at }}</li>
+              {% endif %}
+              {% if task.completed %}
+              <li>Status: Completed</li>
+              {% else %}
+              <li>Status: Not Completed</li>
+              {% endif %}
+              <li>Tag: {{ task.get_tag_display }}</li>
+          </ul>
         </div>
     </div>
     {% endfor %}
+
+
 </body>
 
 </html>

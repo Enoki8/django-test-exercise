@@ -1,31 +1,40 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+<head>
+    <title>To Do Application</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="INIAD">
+    <link href="{% static 'todo/css/default.css' %}" rel="stylesheet">
+</head>
 
-    <head>
-        <title>To Do Application</title>
-        <meta charset="UTF-8">
-        <meta name="author" content="INIAD">
-        <link href="{% static 'todo/css/default.css' %}" rel="stylesheet">
-    </head>
+<body>
+    <h1>Edit task</h1>
+    <p>You can edit tasks from the following form.</p>
+    <form action="{% url 'update' task.id %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="tutkeInput">Title</label><br>
+            <input id="titleInput" name="title" type="text" placeholder="Input title" value="{{ task.title }}">
+        </div>
+        <dev>
+            <label for="dueInput">Due at:</label><br>
+            <input id="dueInput" name="due_at" type="datetime-local" value="{{ task.due_at|date:" Y-m-d H:i" }}">
+        </dev>
+        <div>
+            <label for="tagInput">Tag:</label><br>
+            <select id="tagInput" name="tag" value="{{ task.tag }}">
+                <option value="coding">コーディング</option>
+                <option value="submit">作品提出</option>
+                <option value="presentation">発表</option>
+                <option value="other">その他</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <br>
+</body>
 
-    <body>
-        <h1>Edit task</h1>
-        <p>You can edit tasks from the following form.</p>
-        <form action="{% url 'update' task.id %}" method="post">
-            {% csrf_token %}
-            <div>
-                <label for="tutkeInput">Title</label><br>
-                <input id="titleInput" name="title" type="text" placeholder="Input title" value="{{ task.title }}">
-            </div>
-            <dev>
-                <label for="dueInput">Due at;</label><br>
-                <input id="dueInput" name="due_at" type="datetime-local" value="{{ task.due_at|date:"Y-m-d H:i" }}">
-            </dev>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-        <br>
-    </body>
 </html>

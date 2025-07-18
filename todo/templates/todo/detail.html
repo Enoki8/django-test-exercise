@@ -21,6 +21,7 @@
         {% else %}
         <li>Status: Not Completed</li>
         {% endif %}
+        <li>Tag: {{ task.get_tag_display }}</li>
     </ul>
 
     <div>
