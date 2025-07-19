@@ -6,6 +6,7 @@
     <title>To Do Application</title>
     <meta charset="UTF-8">
     <meta name="author" content="INIAD">
+    <link href="{% static 'todo/css/default.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -26,7 +27,6 @@
     <div>
         <a href="{% url 'index' %}">Top</a>
         <a href="{% url 'delete' task.id %}">Delete</a> <!-- 削除リンクを追加 -->
-        <a href="{% url 'update' task.id %}">Edit</a>
         <a href="{% url 'close' task.id %}">Close</a>
         <a href="{% url 'update' task.id %}">Edit</a>
     </div>
