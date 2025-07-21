@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required  # いいね機能のために追加した
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.utils.timezone import make_aware
 from django.utils.dateparse import parse_datetime
@@ -71,3 +73,23 @@ def close(request, task_id):
     task.save()
     return redirect(index)
 
+@login_required
+def toggle_like(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+
+    if request.user in task.liked_users.all():
+        task.liked_users.remove(request.user)  # いいね解除
+    else:
+        task.liked_users.add(request.user)     # いいね
+
+    return redirect('detail', task_id=task.id)
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # 登録後ログインページへ
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})

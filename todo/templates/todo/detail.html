@@ -21,13 +21,24 @@
         <li>Status: Not Completed</li>
         {% endif %}
         <li>Tag: {{ task.get_tag_display }}</li>
+        <li>Likes: {{ task.like_count }}</li>
     </ul>
+    
+    <form action="{% url 'toggle_like' task.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">
+            {% if user in task.liked_users.all %}
+                ❤️ Liked
+            {% else %}
+                🤍 Like
+            {% endif %}
+        </button>
+    </form>
 
     <div>
         <a href="{% url 'index' %}">Top</a>
         <a href="{% url 'delete' task.id %}">Delete</a> <!-- 削除リンクを追加 -->
         <a href="{% url 'update' task.id %}">Edit</a>
         <a href="{% url 'close' task.id %}">Close</a>
-        <a href="{% url 'update' task.id %}">Edit</a>
     </div>
 </body>
