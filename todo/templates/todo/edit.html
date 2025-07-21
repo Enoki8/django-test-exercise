@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <title>To Do Application</title>
     <meta charset="UTF-8">
@@ -10,6 +11,15 @@
 
 <body>
     <h1>Edit task</h1>
+
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+        alert('{{ message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+
     <p>You can edit tasks from the following form.</p>
     <form action="{% url 'update' task.id %}" method="post">
         {% csrf_token %}

@@ -4,18 +4,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.utils.timezone import make_aware
 from django.utils.dateparse import parse_datetime
+from django.contrib import messages
 from todo.models import Task
 
 
 def index(request):
     if request.method == 'POST':
-        task = Task(
-            title=request.POST['title'],
-            user_name=request.POST['user_name'],
-            due_at=make_aware(parse_datetime(request.POST['due_at'])),
-            tag=request.POST['tag']
-        )
-        task.save()
+        if not request.POST['due_at']:
+            messages.error(request, '期限を入力してください')
+            return redirect('index')
+        try:
+            task = Task(
+                title=request.POST['title'],
+                user_name=request.POST['user_name'],
+                due_at=make_aware(parse_datetime(request.POST['due_at'])),
+                tag=request.POST['tag']
+            )
+            task.save()
+        except ValueError:
+            messages.error(request, '正しい日付形式で入力してください')
+            return redirect('index')
     tag = request.GET.get('tag')
     if tag:
         tasks = Task.objects.filter(tag=tag)
@@ -52,18 +60,25 @@ def update(request, task_id):
         task = Task.objects.get(pk=task_id)
     except Task.DoesNotExist:
         raise Http404("Task does not exist")
+    
     if request.method == 'POST':
-        task.title = request.POST['title']
-        task.due_at = make_aware(parse_datetime(request.POST['due_at']))
-        task.tag = request.POST['tag']
-        task.save()
-        return redirect(detail, task_id)
+        if not request.POST['due_at']:
+            messages.error(request, '期限を入力してください')
+            return render(request, "todo/edit.html", {'task': task})
+        try:
+            task.title = request.POST['title']
+            task.due_at = make_aware(parse_datetime(request.POST['due_at']))
+            task.tag = request.POST['tag']
+            task.save()
+            return redirect(detail, task_id)
+        except ValueError:
+            messages.error(request, '正しい日付形式で入力してください')
+            return render(request, "todo/edit.html", {'task': task})
     
     context = {
         'task': task
     }
     return render(request, "todo/edit.html", context)
-
 
 def close(request, task_id):
     try:

@@ -11,6 +11,14 @@
 
 <body>
     <h1>Sample To Do Application</h1>
+
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+        alert('{{ message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
     <p>You can submit tasks from the following form.</p>
     <form action="{% url 'index' %}" method="post" class="form">
         {% csrf_token %}
@@ -70,8 +78,8 @@
             <li>Status: Not Completed</li>
             {% endif %}
             <li>Tag: {{ task.get_tag_display }}</li>
-          </ul>
-        </div>
+        </ul>
+    </div>
     </div>
     {% endfor %}
 
