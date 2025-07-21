@@ -15,6 +15,10 @@
     <form action="{% url 'index' %}" method="post" class="form">
         {% csrf_token %}
         <div>
+            <label for="userNameInput">User Name</label><br>
+            <input id="userNameInput" name="user_name" type="text" placeholder="Input your name">
+        </div>
+        <div>
             <label for="titleInput">Title</label><br>
             <input id="titleInput" name="title" type="text" placeholder="Input title">
         </div>
@@ -54,18 +58,18 @@
     {% for task in tasks %}
     <div class="text">
         <h2><a href="{% url 'detail' task.id %}">{{ task.title }}</a></h2>
-        <div class="description">
-          <ul>
-              <li>Posted at: {{ task.posted_at }}</li>
-              {% if task.due_at %}
-              <li>Due at: {{ task.due_at }}</li>
-              {% endif %}
-              {% if task.completed %}
-              <li>Status: Completed</li>
-              {% else %}
-              <li>Status: Not Completed</li>
-              {% endif %}
-              <li>Tag: {{ task.get_tag_display }}</li>
+        <ul>
+            <li>Posted by: {{ task.user_name }}</li>
+            <li>Posted at: {{ task.posted_at }}</li>
+            {% if task.due_at %}
+            <li>Due at: {{ task.due_at }}</li>
+            {% endif %}
+            {% if task.completed %}
+            <li>Status: Completed</li>
+            {% else %}
+            <li>Status: Not Completed</li>
+            {% endif %}
+            <li>Tag: {{ task.get_tag_display }}</li>
           </ul>
         </div>
     </div>

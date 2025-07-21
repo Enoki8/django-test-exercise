@@ -7,6 +7,7 @@ from django.contrib.auth.models import User   # いいね機能のために追�
 
 class Task(models.Model):
     title = models.CharField(max_length=100)
+    user_name = models.CharField(max_length=100, default="unknown")
     completed = models.BooleanField(default=False)
     posted_at = models.DateTimeField(default=timezone.now)
     due_at = models.DateTimeField(null=True, blank=True)
