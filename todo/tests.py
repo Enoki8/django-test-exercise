@@ -131,6 +131,7 @@ class TodoViewTestCase(TestCase):
         self.client = Client()
         data = {
             'title': 'プログラミング課題',
+            'user_name': 'テストユーザー', 
             'due_at': '2024-06-30 23:59:59',
             'tag': 'coding'
         }
