@@ -112,3 +112,47 @@ class TodoViewTestCase(TestCase):
         response = client.get('/1/')
 
         self.assertEqual(response.status_code, 404)
+
+class TaskModelTestCase(TestCase):
+    # ...existing code...
+
+    def test_create_task_with_tag(self):
+        """タグ付きでタスクを作成するテスト"""
+        task = Task(title='課題', tag='submit')
+        task.save()
+        task = Task.objects.get(pk=task.pk)
+        self.assertEqual(task.title, '課題')
+        self.assertEqual(task.tag, 'submit')
+        self.assertEqual(task.get_tag_display(), '作品提出')
+
+class TodoViewTestCase(TestCase):
+
+    def test_index_post_with_tag(self):
+        self.client = Client()
+        data = {
+            'title': 'プログラミング課題',
+            'due_at': '2024-06-30 23:59:59',
+            'tag': 'coding'
+        }
+        response = self.client.post('/', data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'todo/index.html')
+        
+        task = response.context['tasks'][0]
+        self.assertEqual(task.tag, 'coding')
+        self.assertEqual(task.get_tag_display(), 'コーディング')
+
+    def test_index_filter_by_tag(self):
+        # テスト用のタスクを作成
+        task1 = Task(title='課題1', tag='coding')
+        task1.save()
+        task2 = Task(title='課題2', tag='submit')
+        task2.save()
+        
+        client = Client()
+        response = client.get('/?tag=coding')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['tasks']), 1)
+        self.assertEqual(response.context['tasks'][0].tag, 'coding')
